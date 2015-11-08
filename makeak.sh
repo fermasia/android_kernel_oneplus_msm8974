@@ -1,5 +1,6 @@
 #!/bin/bash
-TOOLCHAIN="/home/nando/dev/toolchains/gcc48/bin"
+TOOLCHAIN="/home/nando/dev/toolchains/uber49/bin"
+JOBS="-j$(grep -c ^processor /proc/cpuinfo)"
 echo "Cleaning old files"
 rm -f ../AnykernelCYANO/dtb
 rm -f ../AnykernelCYANO/zImage
@@ -11,7 +12,7 @@ make clean && make mrproper
 export ARCH=arm
 export SUBARCH=arm
 make CROSS_COMPILE=$TOOLCHAIN/arm-eabi- cyanogenmod_bacon_defconfig
-make CROSS_COMPILE=$TOOLCHAIN/arm-eabi- -j2
+make CROSS_COMPILE=$TOOLCHAIN/arm-eabi- $JOBS
 echo "End of compiling kernel!"
 
 DATE_END=$(date +"%s")
